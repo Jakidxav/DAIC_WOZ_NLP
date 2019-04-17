@@ -17,11 +17,13 @@ def tokenize(doc):
     #return nltk.word_tokenize(doc)
     return nltk.tokenize.WhitespaceTokenizer().tokenize(doc)
 
-#Input a list of list containing tokenized document or corpus. Return all tokens if not of the format: [token]
+#Input a list of list containing tokenized document or corpus. Return all tokens if not of the format: [token] or <token>
 #This is an attempt to remove semantic information that would skew training.
-#NOTE: this should be done before removing punctuation, otherwise you will not find the correct tokens
+#NOTE: this should be done before removing punctuation, otherwise you will not find the correct tokens.
 def remove_semantics(tokens):
-    return [token for token in tokens if not token.startswith('[') and  not token.endswith(']')]
+    tokens =  [token for token in tokens if not token.startswith('[') and  not token.endswith(']')]
+    
+    return [token for token in tokens if not token.startswith('<') and  not token.endswith('>')]
 
 
 #Convert all tokens to lowercase. Assumes that tokenizing has already occurred.
