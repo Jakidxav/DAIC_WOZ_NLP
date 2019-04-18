@@ -5,6 +5,8 @@ Date: 04.10.2019
 Process DAIC_WOZ text files:
 -tokenize by word
 -remove semantic information
+-remove proper nouns
+-split contractions for removal
 -remove punctuation
 -convert to lower case
 -remove stop words
@@ -18,8 +20,6 @@ import csv
 import pandas as pd
 import numpy as np
 import os
-
-import string
 
 from clean_text import *
 
@@ -47,20 +47,26 @@ for subdirs, dirs, files in os.walk(this_dir):
             file = open(filename, 'rt')
             text = file.read()
             file.close()
-            
+                        
             #rename file for saving output
             filename = '/' + filename
             out_filename = filename.replace('_raw.txt', '_cleaned.txt')
             
             #PROCESS TEXT
-            #whitespace tokenize, **preserve contractions**
+            #whitespace tokenize
             tokens = tokenize(text)
-
+            
             #take out semantic information
             no_semantics = remove_semantics(tokens)
 
+            #convert back to string to split apart contractions
+            l2s = list_to_string(no_semantics)
+            
+            #split contractions AFTER removing semantic information
+            split = split_contractions(l2s)
+
             #strip punctuation
-            no_punct = strip_punctuation(no_semantics)
+            no_punct = strip_punctuation(split)
 
             #convert to lowercase
             lower = lower_case(no_punct)
