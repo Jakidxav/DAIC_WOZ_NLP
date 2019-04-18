@@ -1,5 +1,5 @@
 """
-Author: Joshua Driscol
+Author: Jakidxav
 Date: 04.10.2019
 
 Process DAIC_WOZ text files:
