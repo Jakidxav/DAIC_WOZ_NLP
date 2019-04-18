@@ -1,5 +1,5 @@
 """
-Author: Joshua Driscol
+Author: Jakidxav
 Date: 03.28.2019
 
 Process a DAIC_WOZ transcript, convert the CSV file to a .txt file
@@ -28,7 +28,7 @@ if os.path.isdir(full_dir) == False:
 	os.makedirs(full_dir)
 
 #boolean for rerouting output: participant = True for participant only, participant = False for full transcript
-participant = False
+participant = True:
 
 for subdir, dirs, files in os.walk(this_dir):
 	for file in files:
