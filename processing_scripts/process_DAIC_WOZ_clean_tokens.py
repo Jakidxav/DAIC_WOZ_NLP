@@ -8,7 +8,6 @@ Process DAIC_WOZ text files:
 -remove proper nouns
 -split contractions for removal
 -remove punctuation
--convert to lower case
 -remove stop words
 -remove non-alphabetic characters
 
@@ -68,11 +67,8 @@ for subdirs, dirs, files in os.walk(this_dir):
             #strip punctuation
             no_punct = strip_punctuation(split)
 
-            #convert to lowercase
-            lower = lower_case(no_punct)
-
             #remove stopwords
-            no_stops = remove_stopwords(lower)
+            no_stops = remove_stopwords(no_punct)
 
             #remove numbers from tokens
             words = remove_numbers(no_stops)
