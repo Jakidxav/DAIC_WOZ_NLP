@@ -5,7 +5,6 @@ Date: 04.10.2019
 Process DAIC_WOZ text files:
 -tokenize by word
 -remove semantic information
--remove proper nouns
 -split contractions for removal
 -remove punctuation
 -remove stop words
