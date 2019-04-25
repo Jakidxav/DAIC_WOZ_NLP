@@ -79,6 +79,9 @@ def remove_stopwords(tokens):
     stopwords.extend(['mmm', 'k', 'xxx'])
     stops = set(stopwords)
 
+    #example of how to remove certain words from stopwords
+    stops.remove('i')
+
     return [token for token in tokens if token not in stops]
 
 
