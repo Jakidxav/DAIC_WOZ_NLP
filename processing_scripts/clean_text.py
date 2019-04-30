@@ -19,6 +19,13 @@ def tokenize(doc):
 
 
 
+#Input a document and receive a list of lists detailing individual sentence tokens.
+def sentence_tokenize(doc):
+
+    return nltk.tokenize.sent_tokenize(doc)
+
+
+
 #Input a string or document and output a list of tokens that has split contractions.
 #Note, this is a WordPunct tokenizer, which splits apart contractions. However, the stopwords included in 
 #NLTK should delete the split contractions if converted to lowercase.
