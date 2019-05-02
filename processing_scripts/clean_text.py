@@ -128,3 +128,34 @@ def remove_people_places(doc):
     #now remove those words and 
     return [token for token in doc if token not in to_remove]
 
+
+
+#Input a file that has text on separate lines (separated by breakline characters or otherwise).
+#Output number of lines in that file.
+def count_sentences(filename):
+    sentences = 0
+
+    doc = open(filename, 'rt')
+
+    for line in doc:
+        sentences += 1
+
+    doc.close()
+
+    return sentences
+
+
+
+#Input a custom list of words you would like to count in a list of tokenized words.
+#Outputs the total count of the words in your_list based on the frequency in tokens.
+def list_in_text(your_list, tokens):
+    count = 0
+
+    for word in your_list:
+        for token in tokens:
+            if token == word:
+                count += 1
+
+    return count
+
+
