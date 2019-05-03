@@ -84,10 +84,13 @@ def remove_stopwords(tokens):
     
     #add bad tokens into stopwords list
     stopwords.extend(['mmm', 'k', 'xxx'])
-    stops = set(stopwords)
 
-    #example of how to remove certain words from stopwords
-    stops.remove('i')
+    #update stop words to keep certain words
+    keep_list = ['uh', 'uhhh', 'um', 'ummm', 'i', "i'm", 'me', 'myself', 'mine', 'my',
+                 'we', 'us', 'ourselves', 'ourself', 'ours', 'our', 'he', 'him', 'himself', 'his', 			 			'she', 'her', 'herself', 'hers', 'her', 'they', 'them', 'themselves', 'themself', 'theirs', 'their', 			'always', 'nothing', 'completely', 'never', 'all', 'every', 'none', 'only']
+
+    stopwords = [word for word in stopwords if word not in keep_list]
+    stops = set(stopwords)
 
     return [token for token in tokens if token not in stops]
 
