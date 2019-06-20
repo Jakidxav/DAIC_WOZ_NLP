@@ -1,1 +1,1 @@
-NLP/linguistic approach to modelling the DAIC-WOZ dataset with PHQ8 scores for the newly-released DAIC-WOZ data set for the [2019 AVEC challenge](https://sites.google.com/view/avec2019/home?authuser=0).
+NLP / linguistic approach to modelling the DAIC-WOZ dataset with PHQ8 scores for the newly-released DAIC-WOZ data set for the [2019 AVEC challenge](https://sites.google.com/view/avec2019/home?authuser=0).
