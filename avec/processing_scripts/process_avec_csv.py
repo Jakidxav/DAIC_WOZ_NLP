@@ -6,8 +6,8 @@ Process a DAIC_WOZ transcript for the AVEC challenge, convert the CSV file to a 
 
 The script depends on the following stardardized input format:
 
-Columns: start_time, stop_time, Text
-- start_time, stop_time: these should correspond to only one speaker
+Columns: Start_Time, End_Time, Text, Confidence
+- Start_Time, End_Time: these should correspond to only one speaker
 - Text: this column **must** be labelled Text. This differs from the old DAIC-WOZ data attribute "value".
 - Note that there is no "speaker" column like in the old DAIC-WOZ data, as Ellie's portions of the transcripts have been stripped. Only those parts corresponding to the participant's speech are included.
 """
