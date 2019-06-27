@@ -48,4 +48,4 @@ to_save = to_save_train
 positive, negative = process_pos_neg_file(pos_neg_file)
 
 #main processing step: creates a dataframe of word counts, then saves it to a CSV
-positive_negative_counts(change_to_dir, keyword, to_save, positive, negative)
+positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, positive, negative)

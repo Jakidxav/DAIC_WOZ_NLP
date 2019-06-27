@@ -76,7 +76,7 @@ This helper method loops through all of the files in a directory and uses the po
 
 Input the directory that you would like to change to as well as the name of the file you would like to save the output to. The "keyword" argument is well-documented below. 
 """
-def positive_negative_counts(change_to_dir, keyword, to_save, positive, negative):
+def positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, positive, negative):
     #change to correct directory
     change_dir = os.chdir(change_to_dir)
 
