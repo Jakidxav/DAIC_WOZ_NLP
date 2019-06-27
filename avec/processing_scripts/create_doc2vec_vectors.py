@@ -11,7 +11,7 @@ import numpy as np
 import os
 
 from clean_text import *
-from create_corpus_vectors import *
+from process_corpus_vectors import *
 
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument 
 

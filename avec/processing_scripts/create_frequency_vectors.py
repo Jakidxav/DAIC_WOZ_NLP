@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 from clean_text import *
-from create_corpus_vectors import *
+from process_corpus_vectors import *
 
 from sklearn.feature_extraction.text import CountVectorizer
 

@@ -2,7 +2,9 @@
 Author: Jakidxav
 Date: 06.26.2019
 
-This helper method is the main processing step in the feature_selection.py script.
+This program loops over the training and development directories and counts common pronouns, filler words, and
+absolute words. These features will be used to help build up our correlation analysis on what types of features
+correspond to high reported PHQ-8 scores.
 """
 
 import csv
@@ -11,79 +13,45 @@ import numpy as np
 import os
 
 from clean_text import *
+from process_features import *
 
-"""
-Input lists of pronouns, filler words, and absolute words and loop over a directory.
-Then save each set of features to a dataframe with the participant number as the index.
-"""
-def create_features(change_to_dir, keyword, to_save, participant_nums, total_words, wps, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list):
-    #change directory
-    change_dir = os.chdir(change_to_dir)
+#lists to append each transcript feature to
+#append participant number from filename for indexing
+participant_nums = []
+#count total words, words per sentence
+total_words, wps = [], []
+#filler words, personal prnouns lists
+pronouns1, pronouns2, pronouns3 = [], [], []
 
-    #get current working directory
-    this_dir = os.getcwd()
-    filenames = os.listdir(this_dir)
+fillers, absolute_words = [], []
 
-    #sort filenames for sorting vectors
-    filenames = sorted(filenames)
+#create lists containing fillers, pronouns
+filler_list = ['uh', 'uhhh', 'um', 'ummm']
 
-    #need to iterate through documents
-    #create a list of *strings*, each one containing the transcript of a participant
-    for filename in filenames:
-        if filename.endswith('.txt'):
+#source: https://en.wikipedia.org/wiki/English_personal_pronouns
+singular_list = ['i', "i'm", 'me', 'myself', 'mine', 'my']
+plural_list = ['we', 'us', 'ourselves', 'ourself', 'ours', 'our']
+third_list = ['he', 'him', 'himself', 'his', 'she', 'her', 'herself', 'hers', 'her',
+             'they', 'them', 'themselves', 'themself', 'theirs', 'their']
 
-            #read in file contents
-            file = open(filename, 'rt')
-            text = file.read()
+#create list for absolutist words
+absolute_list = ['always', 'nothing', 'completely', 'never', 'all', 'every', 'none', 'only']
 
-            #count sentences in file
-            sentence_count = count_sentences(filename)
+#change directory
+with_i_dir_train = './trainPart/cleaned_with_i'
+with_i_dir_dev = './devPart/cleaned_with_i'
 
-            file.close()
+#filenames to save to
+to_save_train = 'features_train.csv'
+to_save_dev = 'features_dev.csv'
 
-            #participant numbers will differ in placement between training and development sets
-            #training set files start with "training_", and development set files start with "developement_"
-            if keyword == 'train':
-                participant_nums.append(int(filename[9:12]))
-            else:
-                participant_nums.append(int(filename[12:14]))
+#change this for train or dev set directory
+change_to_dir = with_i_dir_train
 
-            #whitespace tokenize
-            tokens = tokenize(text)
+#set keyword to parse participant numbers correctly
+keyword = 'train'
 
-            #count tokens here for total words
-            total = len(tokens)
-            total_words.append(total)
+#where to save output
+to_save = to_save_train
 
-            #calculate words per sentence
-            average_words = total / sentence_count
-            wps.append(average_words)
-
-            #now loop through fillers, pronouns, absolute words
-            fill = list_in_text(filler_list, tokens)
-            fillers.append(fill)
-
-            single = list_in_text(singular_list, tokens)
-            pronouns1.append(single)
-
-            plural = list_in_text(plural_list, tokens)
-            pronouns2.append(plural)
-
-            third = list_in_text(third_list, tokens)
-            pronouns3.append(third)
-
-            absolute = list_in_text(absolute_list, tokens)
-            absolute_words.append(absolute)
-
-    #save features to dataframe     
-    features_i = pd.DataFrame({'id': participant_nums,
-                            'num_words': total_words,
-                            'wps': wps,
-                            'fillers': fillers,
-                            'p1': pronouns1,
-                            'p2': pronouns2,
-                            'p3': pronouns3,
-                            'abs': absolute_words})
-    
-    #then save features to csv
-    features_i.to_csv(to_save, sep='\t')
+create_features(change_to_dir, keyword, to_save, participant_nums, total_words, wps, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list)
