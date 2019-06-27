@@ -4,4 +4,4 @@ Two noteable difference exist between the 2019 version of the DAIC data and the 
 - First, the robotic voice of Ellie has been stripped from the transcripts.
 - Second, no semantic data was included in this version of the data. In the previous iteration, this looked like [laughter] or <laughter> (both types of brackets were found when processing it).
 
-With the exception of `clean_text.py`, all of the executable scripts start with "create\_" and all of the processing scripts start with "process\_".
+With the exception of `clean_text.py`, all of the executable scripts in the subfolder "/processing_scripts/" start with "create\_" and all of the processing scripts start with "process\_".
