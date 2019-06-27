@@ -16,7 +16,7 @@ from clean_text import *
 Input lists of pronouns, filler words, and absolute words and loop over a directory.
 Then save each set of features to a dataframe with the participant number as the index.
 """
-def create_features(change_to_dir, keyword, to_save, participant_nums, total_words, wps, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list):
+def create_features(change_to_dir, keyword, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list):
     #change directory
     change_dir = os.chdir(change_to_dir)
 
@@ -35,10 +35,6 @@ def create_features(change_to_dir, keyword, to_save, participant_nums, total_wor
             #read in file contents
             file = open(filename, 'rt')
             text = file.read()
-
-            #count sentences in file
-            sentence_count = count_sentences(filename)
-
             file.close()
 
             #participant numbers will differ in placement between training and development sets
@@ -54,10 +50,6 @@ def create_features(change_to_dir, keyword, to_save, participant_nums, total_wor
             #count tokens here for total words
             total = len(tokens)
             total_words.append(total)
-
-            #calculate words per sentence
-            average_words = total / sentence_count
-            wps.append(average_words)
 
             #now loop through fillers, pronouns, absolute words
             fill = list_in_text(filler_list, tokens)
@@ -78,7 +70,6 @@ def create_features(change_to_dir, keyword, to_save, participant_nums, total_wor
     #save features to dataframe     
     features_i = pd.DataFrame({'id': participant_nums,
                             'num_words': total_words,
-                            'wps': wps,
                             'fillers': fillers,
                             'p1': pronouns1,
                             'p2': pronouns2,

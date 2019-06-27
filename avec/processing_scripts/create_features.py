@@ -19,7 +19,7 @@ from process_features import *
 #append participant number from filename for indexing
 participant_nums = []
 #count total words, words per sentence
-total_words, wps = [], []
+total_words = []
 #filler words, personal prnouns lists
 pronouns1, pronouns2, pronouns3 = [], [], []
 
@@ -54,4 +54,4 @@ keyword = 'train'
 #where to save output
 to_save = to_save_train
 
-create_features(change_to_dir, keyword, to_save, participant_nums, total_words, wps, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list)
+create_features(change_to_dir, keyword, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list)
