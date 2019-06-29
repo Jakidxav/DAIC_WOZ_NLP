@@ -20,23 +20,31 @@ import os
 from clean_text import *
 from process_text import *
 
-train_folder = './train/'
+#we will need to change directories for the CSV files
+dir_train = './train/'
 change_dir_train = '../../train/'
 
-#we will need to change directories for the dev CSV files
-dev_folder = './dev/'
+dir_dev = './dev/'
 change_dir_dev = '../../dev/'
 
+dir_test = './test/'
+change_dir_test = '../../test/'
+
 #where to store the actual transcripts
-train_part_dir = '../trainPart/raw/'
-dev_part_dir = '../devPart/raw/'
+part_dir_train = '../trainPart/raw/'
+part_dir_dev = '../devPart/raw/'
+part_dir_test = '../testPart/raw'
 
 to_replace = '.csv'
 replace_with = '_part_raw.txt'
 
-#change to correct directory to start; either train or dev folder
-os.chdir(dev_folder)
+#change to correct directory to start; either train, dev, or test folder
+change_to_dir = dir_test
+original_dir = change_dir_test
+part_dir = part_dir_test
+
+os.chdir(change_to_dir)
 this_dir = os.getcwd()
 
 #convert csv files to txt files
-csv_to_txt(this_dir, to_replace, replace_with, dev_part_dir, change_dir_dev)
+csv_to_txt(this_dir, to_replace, replace_with, part_dir, original_dir)

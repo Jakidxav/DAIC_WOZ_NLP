@@ -31,9 +31,11 @@ total_time = []
 #change directory
 change_dir_train = './train/'
 change_dir_dev = './dev/'
+change_dir_test = './test/'
 
 to_save_train = './transcript_times_train.csv'
 to_save_dev = './transcript_times_dev.csv'
+to_save_test = './transcript_times_test.csv'
 
 ###change values here to redirect output
 change_to_dir = change_dir_dev

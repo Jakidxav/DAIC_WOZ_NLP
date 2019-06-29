@@ -32,6 +32,10 @@ dev_part_dir_raw = './devPart/raw/'
 dev_part_dir = './devPart/cleaned/'
 dev_part_dir_with_i = './devPart/cleaned_with_i/'
 
+test_part_dir_raw = './testPart/raw/'
+test_part_dir = './testPart/cleaned/'
+test_part_dir_with_i = './testPart/cleaned_with_i/'
+
 #create directory for saving output
 change_dir_clean = '../cleaned/'
 change_dir_clean_with_i = '../cleaned_with_i/'
@@ -41,7 +45,9 @@ to_replace = '_raw.txt'
 replace_with = '_cleaned.txt'
 
 #change to correct directory
-os.chdir(dev_part_dir_raw)
+change_to_dir = dev_part_dir_raw
+
+os.chdir(change_to_dir)
 this_dir = os.getcwd()
 
 #process text here

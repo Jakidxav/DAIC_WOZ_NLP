@@ -78,8 +78,8 @@ def frequency_vectors(docs_list, chdir, file_ends_with, dir_ends_with, to_save):
     #change to directory where all scripts and data are held
     os.chdir('../..')
 
-    #then save features to csv
-    features_i.to_csv(to_save, sep='\t')
+    #save frequency vectors for re-use
+    np.save(to_save, vectors)
 
 
 
@@ -123,7 +123,7 @@ def document2vectors(docs_list, pnums_list, chdir, file_ends_with, to_save):
                 keyword = 'test'
             
             #get participant number
-            pnum = get_pnum(keyword)
+            pnum = get_pnum(keyword, filename)
             pnums_list.append(pnum)
 
             #whitespace tokenize
@@ -155,6 +155,6 @@ def document2vectors(docs_list, pnums_list, chdir, file_ends_with, to_save):
     #change to directory where all scripts and data are held
     os.chdir('../..')
 
-    #then save features to csv
-    features_i.to_csv(to_save, sep='\t')
+    #save frequency vectors for re-use
+    np.save(to_save, vectors)
 

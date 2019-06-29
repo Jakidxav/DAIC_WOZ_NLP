@@ -22,6 +22,9 @@ train_text_dir_with_i= './trainPart/cleaned_with_i'
 dev_text_dir_raw = './devPart/raw/'
 dev_text_dir_with_i= './devPart/cleaned_with_i'
 
+test_text_dir_raw = './testPart/raw/'
+test_text_dir_with_i= './testPart/cleaned_with_i'
+
 #only process TXT files
 file_ends_with = '.txt'
 
@@ -32,6 +35,9 @@ to_save_train_clean = 'X_train_i_doc2vec.npy'
 to_save_dev = 'X_dev_raw_doc2vec.npy'
 to_save_dev_clean = 'X_dev_i_doc2vec.npy'
 
+to_save_test = 'X_test_raw_doc2vec.npy'
+to_save_test_clean = 'X_test_i_doc2vec.npy'
+
 #list to append each transcript to
 docs = []
 
@@ -39,8 +45,8 @@ docs = []
 participant_nums = []
 
 #change these variables here:
-chdir = train_text_dir_raw
-to_save = to_save_train
+chdir = train_text_dir_with_i
+to_save = to_save_train_clean
 
 #create doc2vec word embeddings here
 document2vectors(docs, participant_nums, chdir, file_ends_with, to_save)

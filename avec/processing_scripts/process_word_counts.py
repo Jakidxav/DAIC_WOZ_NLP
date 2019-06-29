@@ -77,7 +77,7 @@ This helper method loops through all of the files in a directory and uses the po
 
 Input the directory that you would like to change to as well as the name of the file you would like to save the output to. The "keyword" argument is well-documented below. 
 """
-def positive_negative_counts(change_to_dir, to_save, participant_nums, positive, negative):
+def positive_negative_counts(change_to_dir, to_save, participant_nums, pos, positive, pos_freq, neg, negative, neg_freq):
     #change to correct directory
     change_dir = os.chdir(change_to_dir)
 
@@ -106,14 +106,11 @@ def positive_negative_counts(change_to_dir, to_save, participant_nums, positive,
                 keyword = 'test'
             
             #get participant number
-            pnum = get_pnum(keyword)
+            pnum = get_pnum(keyword, filename)
             participant_nums.append(pnum)
 
             #whitespace tokenize
             tokens = tokenize(text)
-
-            #append tokens to document list
-            docs.append(tokens)
 
             #count positive words unions
             pos_in_tokens = list(set(positive) & set(tokens))
@@ -146,4 +143,4 @@ def positive_negative_counts(change_to_dir, to_save, participant_nums, positive,
     os.chdir('../..')
 
     #then save features to csv
-    features_i.to_csv(to_save, sep='\t')
+    dataframe.to_csv(to_save, sep='\t')

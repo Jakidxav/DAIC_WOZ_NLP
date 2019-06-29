@@ -40,10 +40,12 @@ absolute_list = ['always', 'nothing', 'completely', 'never', 'all', 'every', 'no
 #change directory
 with_i_dir_train = './trainPart/cleaned_with_i'
 with_i_dir_dev = './devPart/cleaned_with_i'
+with_i_dir_test = './testPart/cleaned_with_i'
 
 #filenames to save to
 to_save_train = 'features_train.csv'
 to_save_dev = 'features_dev.csv'
+to_save_test = 'features_test.csv'
 
 #change this for train or dev set directory
 change_to_dir = with_i_dir_train

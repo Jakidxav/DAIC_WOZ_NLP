@@ -47,7 +47,7 @@ def create_features(change_to_dir, to_save, participant_nums, total_words, prono
                 keyword = 'test'
             
             #get participant number
-            pnum = get_pnum(keyword)
+            pnum = get_pnum(keyword, filename)
             participant_nums.append(pnum)
 
             #whitespace tokenize
