@@ -38,9 +38,6 @@ pos_freq, neg_freq = [], []
 #change this for train or dev set directory
 change_to_dir = with_i_dir_train
 
-#set keyword to parse participant numbers correctly
-keyword = 'train'
-
 #where to save output
 to_save = to_save_train
 
@@ -48,4 +45,4 @@ to_save = to_save_train
 positive, negative = process_pos_neg_file(pos_neg_file)
 
 #main processing step: creates a dataframe of word counts, then saves it to a CSV
-positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, positive, negative)
+positive_negative_counts(change_to_dir, to_save, participant_nums, positive, negative)

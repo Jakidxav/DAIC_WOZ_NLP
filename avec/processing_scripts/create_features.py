@@ -48,10 +48,7 @@ to_save_dev = 'features_dev.csv'
 #change this for train or dev set directory
 change_to_dir = with_i_dir_train
 
-#set keyword to parse participant numbers correctly
-keyword = 'train'
-
 #where to save output
 to_save = to_save_train
 
-create_features(change_to_dir, keyword, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list)
+create_features(change_to_dir, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list)

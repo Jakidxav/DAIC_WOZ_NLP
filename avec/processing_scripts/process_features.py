@@ -11,12 +11,13 @@ import numpy as np
 import os
 
 from clean_text import *
+from process_pnums import *
 
 """
 Input lists of pronouns, filler words, and absolute words and loop over a directory.
 Then save each set of features to a dataframe with the participant number as the index.
 """
-def create_features(change_to_dir, keyword, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list):
+def create_features(change_to_dir, to_save, participant_nums, total_words, pronouns1, pronouns2, pronouns3, fillers, absolute_words, filler_list, singular_list, plural_list, third_list, absolute_list):
     #change directory
     change_dir = os.chdir(change_to_dir)
 
@@ -37,12 +38,17 @@ def create_features(change_to_dir, keyword, to_save, participant_nums, total_wor
             text = file.read()
             file.close()
 
-            #participant numbers will differ in placement between training and development sets
-            #training set files start with "training_", and development set files start with "developement_"
-            if keyword == 'train':
-                participant_nums.append(int(filename[9:12]))
+            #set keyword for correctly extracting participant number
+            if filename.startswith('training'):
+                keyword = 'train'
+            elif filename.startswith('develop'):
+                keyword = 'dev'
             else:
-                participant_nums.append(int(filename[12:14]))
+                keyword = 'test'
+            
+            #get participant number
+            pnum = get_pnum(keyword)
+            participant_nums.append(pnum)
 
             #whitespace tokenize
             tokens = tokenize(text)
@@ -75,6 +81,9 @@ def create_features(change_to_dir, keyword, to_save, participant_nums, total_wor
                             'p2': pronouns2,
                             'p3': pronouns3,
                             'abs': absolute_words})
-    
+
+    #change to directory where all scripts and data are held
+    os.chdir('../..')
+
     #then save features to csv
     features_i.to_csv(to_save, sep='\t')

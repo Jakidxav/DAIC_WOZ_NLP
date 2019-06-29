@@ -4,6 +4,7 @@ import numpy as np
 import os
 
 from clean_text import *
+from process_pnums import *
 
 
 """
@@ -76,7 +77,7 @@ This helper method loops through all of the files in a directory and uses the po
 
 Input the directory that you would like to change to as well as the name of the file you would like to save the output to. The "keyword" argument is well-documented below. 
 """
-def positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, positive, negative):
+def positive_negative_counts(change_to_dir, to_save, participant_nums, positive, negative):
     #change to correct directory
     change_dir = os.chdir(change_to_dir)
 
@@ -96,12 +97,17 @@ def positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, 
             text = file.read()
             file.close()
 
-            #participant numbers will differ in placement between training and development sets
-            #training set files start with "training_", and development set files start with "developement_"
-            if keyword == 'train':
-                participant_nums.append(int(filename[9:12]))
+            #set keyword for correctly extracting participant number
+            if filename.startswith('training'):
+                keyword = 'train'
+            elif filename.startswith('develop'):
+                keyword = 'dev'
             else:
-                participant_nums.append(int(filename[12:14]))
+                keyword = 'test'
+            
+            #get participant number
+            pnum = get_pnum(keyword)
+            participant_nums.append(pnum)
 
             #whitespace tokenize
             tokens = tokenize(text)
@@ -136,6 +142,8 @@ def positive_negative_counts(change_to_dir, keyword, to_save, participant_nums, 
                              'pos_freq':pos_freq,
                              'neg_freq':neg_freq})
 
-    #change to main directory, save as a csv
-    os.chdir('../../')
-    dataframe.to_csv(to_save)
+    #change to directory where all scripts and data are held
+    os.chdir('../..')
+
+    #then save features to csv
+    features_i.to_csv(to_save, sep='\t')

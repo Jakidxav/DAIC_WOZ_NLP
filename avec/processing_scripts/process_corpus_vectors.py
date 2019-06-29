@@ -11,6 +11,7 @@ import numpy as np
 import os
 
 from clean_text import *
+from process_pnums import *
 
 from sklearn.feature_extraction.text import CountVectorizer
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
@@ -74,8 +75,11 @@ def frequency_vectors(docs_list, chdir, file_ends_with, dir_ends_with, to_save):
     #now we can use our vectorizer to generate vectors for each document
     vectors = vectorizer.fit_transform(docs_list).toarray()
         
-    #save frequency vectors for re-use
-    np.save(to_save, vectors)
+    #change to directory where all scripts and data are held
+    os.chdir('../..')
+
+    #then save features to csv
+    features_i.to_csv(to_save, sep='\t')
 
 
 
@@ -113,15 +117,14 @@ def document2vectors(docs_list, pnums_list, chdir, file_ends_with, to_save):
             #set keyword for correctly extracting participant number
             if filename.startswith('training'):
                 keyword = 'train'
-            else:
+            elif filename.startswith('develop'):
                 keyword = 'dev'
-                
-            #participant numbers will differ in placement between training and development sets
-            #training set files start with "training_", and development set files start with "developement_"
-            if keyword == 'train':
-                pnums_list.append(int(filename[9:12]))
             else:
-                pnums_list.append(int(filename[12:14]))
+                keyword = 'test'
+            
+            #get participant number
+            pnum = get_pnum(keyword)
+            pnums_list.append(pnum)
 
             #whitespace tokenize
             tokens = tokenize(text)
@@ -149,6 +152,9 @@ def document2vectors(docs_list, pnums_list, chdir, file_ends_with, to_save):
     #convert vectors list to array for saving, loading, and training
     vectors = np.array(vectors)
     
-    #save array to load for training
-    np.save(to_save, vectors)
+    #change to directory where all scripts and data are held
+    os.chdir('../..')
+
+    #then save features to csv
+    features_i.to_csv(to_save, sep='\t')
 

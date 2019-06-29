@@ -17,9 +17,13 @@ import pandas as pd
 import numpy as np
 import os
 
+from clean_text import *
+from process_pnums import *
+from process_time import *
+
 #lists to append each transcript feature to
 #append participant number from filename for indexing
-participant_num = []
+participant_nums = []
 
 #count total time per transcript
 total_time = []
@@ -34,53 +38,9 @@ to_save_dev = './transcript_times_dev.csv'
 ###change values here to redirect output
 change_to_dir = change_dir_dev
 
-#for extracting participant numbers correctly
-keyword = 'dev'
-
 #filename to save to
 to_save = to_save_dev
 ###
 
-change_dir = os.chdir(change_to_dir)
-
-#get current working directory
-this_dir = os.getcwd()
-filenames = os.listdir(this_dir)
-
-#sort filenames for sorting vectors
-filenames = sorted(filenames)
-
-
-#need to iterate through documents
-#create a list of *strings*, each one containing the transcript of a participant
-for filename in filenames:
-    if filename.endswith('.csv'):
-        
-        #participant numbers will differ in placement between training and development sets
-        #training set files start with "training_", and development set files start with "developement_"
-        if keyword == 'train':
-            participant_num.append(int(filename[9:12]))
-        else:
-            participant_num.append(int(filename[12:14]))
-            
-        #read in tab-delimited files
-        df = pd.read_csv(filename)
-
-        #drop unnecessary columns
-        df.drop(['Text', 'Confidence'], axis=1, inplace=True)
-
-        #create time difference column
-        df['time_per_sent'] = df.End_Time - df.Start_Time
-
-        #get total transcript time in minutes
-        #rounded to five decimal places
-        time = np.round((df.time_per_sent.sum() / 60.0), 5)
-
-        total_time.append(time)
-        
-        
-#create dataframe of transcript times for EDA later on
-transcript_times = pd.DataFrame({'id': participant_num,
-                                 'total_time': total_time})
-
-transcript_times.to_csv(to_save, sep='\t')
+#get the time per transcript for a given participant, save to a csv file
+time_per_transcript(change_to_dir, to_save, participant_nums, total_time)
